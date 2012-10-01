@@ -15,8 +15,10 @@ group :development, :test do
 	gem 'rspec-rails'
 end
 
-  gem 'factory_girl_rails', :require => false
-
+group :test do
+	gem 'factory_girl_rails', :require => false
+	gem 'shoulda-matchers'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -33,6 +35,8 @@ end
 gem 'will_paginate-bootstrap'
 gem 'will_paginate'
 gem 'jquery-rails'
+gem "cancan"
+
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
