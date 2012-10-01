@@ -13,11 +13,14 @@
 
 class User < ActiveRecord::Base
   has_secure_password
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :role_ids
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX }, :uniqueness => true
   has_many :assignments, :dependent => :destroy
   has_many :roles, :through => :assignments, :uniq => true
+  accepts_nested_attributes_for :roles
+  accepts_nested_attributes_for :assignments
+
   	def fullname
 		"#{self.first_name} #{self.last_name}"
 	end

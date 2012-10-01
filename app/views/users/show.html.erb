@@ -1,10 +1,22 @@
+<%= simple_form_for(@user, :html => {:class => 'form-horizontal' }) do |f| %>
+<%= f.input :first_name %>
+<%= f.input :last_name %>
+<%= f.input :email %>
+<%= f.input :password %>
+<%= f.input :password_confirmation %>
+<%= f.association :roles, as: :check_boxes, :collection => Role.where(:approvalgroup => true), :prompt => "Select Approval Groups", label: 'Approval groups', :label_method => :description %>
+
+<%= f.button :submit, :class => 'btn-primary' %>
+
+<% end %>
+
 <% provide(:title, "Edit user") %> 
 <h1><%= @user.fullname %></h1>
 <dt>Name</dt>
 	<dd><%= @user.fullname %></dd>
 <dt>Email</dt>
-	<dd><%= @user.email %></dd>
-<dt>Roles</dt>
+	<dd><%= mail_to(@user.email, @user.email) %></dd>
+<dt>Approval Groups</dt>
 	<% @user.roles.each do | r | %>
 	<dd>
 		<%if r.approvalgroup %>
@@ -14,14 +26,6 @@
 	<% end %>
 
 
-<% for role in Role.find(:all) %>
-  <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
-  <%= role.name %>
-<% end %>
 
 
-
-<%= form_for(@user) do |f| %>
-	<%= render 'fields', f: f %>
-	<%= f.submit "Save changes", :class => "btn btn-large btn-primary" %>
-<% end %>
+<%= debug @user if Rails.env.development?%>
