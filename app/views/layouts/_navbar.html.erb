@@ -32,12 +32,39 @@
  
       <!-- Be sure to leave the brand out there if you want it shown -->
       <a class="brand" href="#">Transform</a>
- 
+      
+      <ul class="nav">
+        <li class="<%= 'active' if params[:controller] == 'rfcs' %>"> <a href="/link">RFC</a> </li>
+        <li class="<%= 'active' if params[:controller] == 'users' %>"> <a href="/users">Users</a> </li>
+        <li class="<%= 'active' if params[:controller] == 'controllers' %>"> <a href="/link">Link</a> </li>
+        <div class="nav-collapse">
+          <!-- .nav, .navbar-search, .navbar-form, etc -->
+        </div>
+      </ul>
+
+
+
+
+      <ul class="nav pull-right">
+        <% if signed_in? %>
+                    <li class="dropdown">
+                      <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">My Account<b class="caret"></b></a>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                        <li><a tabindex="-1" href="http://google.com">Action</a></li>
+                        <li><a tabindex="-1" href="#anotherAction">Another action</a></li>
+                        <li><a tabindex="-1" href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <!--<a tabindex="-1" href="/signout">Sign Out</a> //-->
+                         <li><%= link_to "Sign Out", signout_path, :method => :delete, :confirm => "You sure?"%></li>
+                      </ul>
+                    </li>
+        <% else %>
+          <li> <%= link_to "Sign in", signin_path %> </li>                  
+        <% end %>
+      </ul>        
       <!-- Everything you want hidden at 940px or less, place within here -->
-      <div class="nav-collapse">
-        <!-- .nav, .navbar-search, .navbar-form, etc -->
-      </div>
- 
+     
+      
     </div>
   </div>
 </div>

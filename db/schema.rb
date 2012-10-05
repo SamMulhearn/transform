@@ -11,13 +11,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928152327) do
+ActiveRecord::Schema.define(:version => 20121005135906) do
 
   create_table "assignments", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "role_id"
     t.integer  "user_id"
+  end
+
+  create_table "rfcs", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "priority"
+    t.string   "description"
+    t.text     "risk"
+    t.text     "mitigate_risks"
+    t.text     "backup"
+    t.text     "impact"
+    t.text     "imp_plan"
+    t.text     "pre_task"
+    t.text     "post_task"
+    t.text     "backout_plan"
+    t.datetime "start"
+    t.datetime "finish"
+    t.datetime "downtime_start"
+    t.datetime "downtime_finish"
   end
 
   create_table "roles", :force => true do |t|
@@ -35,6 +54,9 @@ ActiveRecord::Schema.define(:version => 20120928152327) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "remember_token"
   end
+
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

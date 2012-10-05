@@ -9,6 +9,7 @@ gem 'sqlite3'
 
 group :development do
 	gem 'annotate'
+	gem 'debugger'
 end
 
 group :development, :test do
@@ -37,6 +38,8 @@ gem 'will_paginate'
 gem 'jquery-rails'
 gem "cancan"
 gem 'simple_form'
+gem "jquery-rails"
+gem "thin"
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,0 +1,2 @@
+class RfcsController < ApplicationController
+end

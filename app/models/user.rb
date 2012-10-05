@@ -20,8 +20,15 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :assignments, :uniq => true
   accepts_nested_attributes_for :roles
   accepts_nested_attributes_for :assignments
+  before_save :create_remember_token
+  has_many :rfcs
 
   	def fullname
 		"#{self.first_name} #{self.last_name}"
 	end
+  
+  private
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
 end
