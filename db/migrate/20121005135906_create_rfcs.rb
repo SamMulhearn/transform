@@ -17,7 +17,6 @@ class CreateRfcs < ActiveRecord::Migration
       t.datetime :finish
       t.datetime :downtime_start
       t.datetime :downtime_finish
-
     end
   end
 end

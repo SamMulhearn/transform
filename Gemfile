@@ -39,7 +39,7 @@ gem 'jquery-rails'
 gem "cancan"
 gem 'simple_form'
 gem "jquery-rails"
-gem "thin"
+#gem "thin"
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

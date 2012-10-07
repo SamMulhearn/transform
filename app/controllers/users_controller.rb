@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	def index
-		@users = User.paginate(:page => params[:page], :per_page => 10,)
+		@users = User.paginate(:page => params[:page], :per_page => 12,)
 	end
 
 	def show
@@ -33,6 +33,7 @@ class UsersController < ApplicationController
 	def create
     	@user = User.new(params[:user])
     	if @user.save
+          sign_in @user
       		redirect_to @user, notice: "Thanks for signing up."
     	else
       		render 'new'

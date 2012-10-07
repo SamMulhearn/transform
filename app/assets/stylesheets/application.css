@@ -15,8 +15,6 @@
     padding-top: 65px; 
 }
 
-table.userindex{
-	margin-top: 30px;
-    table-layout: fixed;
-    overflow: hidden;
+.mybrand {
+	font-family: 'Lobster Two', cursive;
 }

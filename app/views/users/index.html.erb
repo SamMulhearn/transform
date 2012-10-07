@@ -1,44 +1,26 @@
-<div class="container">
-	
-
-
-<%= link_to signup_path, class:'btn btn-success pull-right' do %>
-  <i class="icon-plus-sign icon-white"></i> Add New User
-<% end %>
-</div>
-
-
-<div class="container">
-	
-		<% @users.each do |user| %>
-			<div class="span5">
-			<table class="table table-bordered userindex">
-				<thead>
-					<tr>
-						<td class="hideoverflow">
-							<strong><%= link_to user.fullname, user %></strong>
-						</td>
-					</tr>
-				</thead>
-				<tr>
-					<td class="hideoverflow">
-						<%=  user.email %>
-					</td>
-				</tr>
-				<tr>
-					<td class="hideoverflow">
-						<%= link_to user_path(user), :method => :delete, :class => 'btn btn-danger', :confirm => "Delete user account for #{user.fullname}?" do %>
-					  			<i class="icon-remove-sign icon-white"></i> Delete
-						<% end %>
-					</td>
-				</tr>
-			</table>
-			</div>			
-		<% end %>
+<% @users.each do |user| %>
+	<div class="span3">
+		<table class="table table-bordered userindex">
+			<tr>
+				<td class="hideoverflow">
+					<strong><%= link_to user.fullname, user %></strong>
+				</td>
+			</tr>
+			<tr>
+				<td class="hideoverflow">
+					<%=  user.email %>
+				</td>
+			</tr>
+			<tr>
+				<td class="hideoverflow">
+					<%= link_to user_path(user), :method => :delete, :class => 'btn btn-danger',"data-disable-with"=> "Deleting..." ,:confirm => "Delete user account for #{user.fullname}?" do %>
+				  			<i class="icon-remove-sign icon-white"></i> Delete
+					<% end %>
+				</td>
+			</tr>
+		</table>
 	</div>
-
-
-
-<div class="container">
+<% end %>
+<div class="span12">
 	<%= will_paginate @users, :renderer => BootstrapPagination::Rails %>
 </div>
