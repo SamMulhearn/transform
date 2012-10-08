@@ -2,12 +2,12 @@
 #
 # Table name: roles
 #
-#  id            :integer          not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  name          :string(255)
-#  description   :string(255)
-#  approvalgroup :boolean
+#  id             :integer          not null, primary key
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  name           :string(255)
+#  approvalgroup  :boolean
+#  mandatory_appr :boolean
 #
 
 require 'spec_helper'

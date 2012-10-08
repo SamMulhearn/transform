@@ -2,6 +2,7 @@ Transform::Application.routes.draw do
   resources :rfcs
 
   resources :users
+  resources :roles
   resources :sessions, only: [:new, :create, :destroy]
   root :to => 'staticpage#home'
 

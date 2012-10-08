@@ -4,9 +4,11 @@ class CreateRfcs < ActiveRecord::Migration
 
       t.timestamps
       t.integer :priority
-      t.string :description
+      t.text :status
+      t.string :title
+      t.string :objective
       t.text :risk
-      t.text :mitigate_risks #take_out_of_service
+      t.text :mitigate_risks #take_out_of_service #testing completed
       t.text :backup
       t.text :impact
       t.text :imp_plan

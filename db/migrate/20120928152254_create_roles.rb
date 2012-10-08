@@ -1,11 +1,10 @@
 class CreateRoles < ActiveRecord::Migration
   def change
     create_table :roles do |t|
-
       t.timestamps
       t.string :name
-      t.string :description
       t.boolean :approvalgroup
+      t.boolean :mandatory_appr
     end
   end
 end

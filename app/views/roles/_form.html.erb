@@ -1,0 +1,8 @@
+<%= simple_form_for(@role, :html => {:class => 'form-horizontal' }) do |f| %>
+	<%= f.error_notification %>
+	<%= f.input :name %>
+	<%= f.input :mandatory_appr, label:"Mandatory for all changes" %>
+<div class="form-actions">
+	<%= f.button :submit,"data-disable-with"=> "Please Wait..." ,:class => 'btn-primary' %>
+</div>
+<% end %>

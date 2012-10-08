@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :assignments, :uniq => true
   accepts_nested_attributes_for :roles
   accepts_nested_attributes_for :assignments
-  before_save :create_remember_token
+  before_save :create_remember_token , :downcase_email
   has_many :rfcs
 
   	def fullname
@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
 	end
   
   private
+    def downcase_email
+      self.email = self.email.downcase
+    end
+
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
     end

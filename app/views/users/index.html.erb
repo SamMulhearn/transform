@@ -1,3 +1,4 @@
+
 <% @users.each do |user| %>
 	<div class="span3">
 		<table class="table table-bordered userindex">
@@ -13,14 +14,18 @@
 			</tr>
 			<tr>
 				<td class="hideoverflow">
+					<%= link_to edit_user_path(user), :class => 'btn btn-primary',"data-disable-with"=> "Please Wait..." do %>
+				  			<i class="icon-pencil icon-white"></i> Edit
+					<% end %>
 					<%= link_to user_path(user), :method => :delete, :class => 'btn btn-danger',"data-disable-with"=> "Deleting..." ,:confirm => "Delete user account for #{user.fullname}?" do %>
-				  			<i class="icon-remove-sign icon-white"></i> Delete
+				  			<i class="icon-trash icon-white"></i> Delete
 					<% end %>
 				</td>
 			</tr>
 		</table>
 	</div>
 <% end %>
+
 <div class="span12">
 	<%= will_paginate @users, :renderer => BootstrapPagination::Rails %>
 </div>

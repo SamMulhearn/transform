@@ -5,8 +5,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name
       t.string :email
       t.string :password_digest
-
+			t.string :remember_token
       t.timestamps
     end
+    add_index  :users, :remember_token
   end
 end

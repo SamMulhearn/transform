@@ -14,28 +14,40 @@
       </ul>
         <div class="nav-collapse">
           <ul class="nav">
-            <li class="<%= 'active' if params[:controller] == 'rfcs' %>"> <a href="/link">RFC</a> </li>
-            <li class="<%= 'active' if params[:controller] == 'users' %>"> <a href="/users">Users</a> </li>
-            <li class="<%= 'active' if params[:controller] == 'controllers' %>"> <a href="/link">Link</a> </li>
-            <!-- .nav, .navbar-search, .navbar-form, etc -->
+
+
+            <li class="<%= 'active' if params[:controller] == 'rfcs' %>"> <%= link_to rfcs_path do %>
+              <i class="icon-wrench"></i> RFC
+            <% end %> </li>
+
+
+            <li class="<%= 'active' if params[:controller] == 'users' %>"> <%= link_to users_path do %>
+              <i class="icon-user"></i> Users
+            <% end %> </li>
+            
+            <li class="<%= 'active' if params[:controller] == 'roles' %>"> <%= link_to roles_path do %>
+              <i class="icon-check"></i> Approval Groups
+            <% end %></li>
+
           </ul>
+          <ul class="nav pull-right">
+            <% if signed_in? %>
+                        <li class="dropdown">
+                          <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock"></i> My Account<b class="caret"></b></a>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                            <li><a tabindex="-1" href="http://google.com">Action</a></li>
+                            <li><a tabindex="-1" href="#anotherAction">Another action</a></li>
+                            <li><a tabindex="-1" href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><%= link_to "Sign Out", signout_path, :method => :delete, :confirm => "You sure?"%></li>
+                          </ul>
+                        </li>
+            <% else %>
+              <li> <%= link_to "Sign in", signin_path %> </li>                  
+            <% end %>
+          </ul>
+            <!-- .nav, .navbar-search, .navbar-form, etc -->
         </div>
-      <ul class="nav pull-right">
-        <% if signed_in? %>
-                    <li class="dropdown">
-                      <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">My Account<b class="caret"></b></a>
-                      <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                        <li><a tabindex="-1" href="http://google.com">Action</a></li>
-                        <li><a tabindex="-1" href="#anotherAction">Another action</a></li>
-                        <li><a tabindex="-1" href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><%= link_to "Sign Out", signout_path, :method => :delete, :confirm => "You sure?"%></li>
-                      </ul>
-                    </li>
-        <% else %>
-          <li> <%= link_to "Sign in", signin_path %> </li>                  
-        <% end %>
-      </ul>
-    </div>
+        </div>
   </div>
 </div>

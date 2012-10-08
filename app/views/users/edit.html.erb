@@ -1,0 +1,14 @@
+<div class="span12">
+	<%= simple_form_for(@user, :html => {:class => 'form-horizontal' }) do |f| %>
+	<%= f.error_notification %>
+	<%= f.input :first_name %>
+	<%= f.input :last_name %>
+	<%= f.input :email %>
+	<%= f.input :password %>
+	<%= f.input :password_confirmation %>
+	<%= f.association :roles, as: :check_boxes, :collection => Role.where(:approvalgroup => true), :prompt => "Select Approval Groups", label: 'Approval groups', :label_method => :name %>
+	<div class="form-actions">
+		<%= f.button :submit,"data-disable-with"=> "Updating..." ,:class => 'btn-primary' %>
+	</div>
+	<% end %>
+</div>

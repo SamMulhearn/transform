@@ -11,6 +11,10 @@ class UsersController < ApplicationController
 		@user = User.new
 	end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
 	def destroy
 		email = User.find(params[:id]).email
 	    User.find(params[:id]).destroy
