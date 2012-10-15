@@ -3,10 +3,11 @@ class CreateRfcs < ActiveRecord::Migration
     create_table :rfcs do |t|
 
       t.timestamps
+      t.integer :user_id
       t.integer :priority
-      t.text :status
       t.string :title
-      t.string :objective
+      t.text :status
+      t.text :objective
       t.text :risk
       t.text :mitigate_risks #take_out_of_service #testing completed
       t.text :backup
@@ -15,10 +16,9 @@ class CreateRfcs < ActiveRecord::Migration
       t.text :pre_task
       t.text :post_task
       t.text :backout_plan
-      t.datetime :start
-      t.datetime :finish
-      t.datetime :downtime_start
-      t.datetime :downtime_finish
+      t.date :imp_date
+      t.time :downtime_start
+      t.time :downtime_finish
     end
   end
 end

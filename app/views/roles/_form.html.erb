@@ -2,7 +2,29 @@
 	<%= f.error_notification %>
 	<%= f.input :name %>
 	<%= f.input :mandatory_appr, label:"Mandatory for all changes" %>
+
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Select Users <i>(optional)</i>
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner">
+		<%= f.association :users, as: :check_boxes, :prompt => "Select Users", label: 'Users', :label_method => :fullname %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="form-actions">
 	<%= f.button :submit,"data-disable-with"=> "Please Wait..." ,:class => 'btn-primary' %>
+
+
 </div>
+
 <% end %>

@@ -1,3 +1,15 @@
 <div class="span12">
 	<h5>Requests for Change</h5>
+	<%= link_to new_rfc_path, class:'btn btn-success', "data-disable-with"=> "Please Wait..." do %>
+			<i class="icon-plus-sign icon-white"></i> New RFC
+			<% end %>
+</div>
+
+<ul class="rfcs">
+  <%= render @rfcs %>
+</ul>
+
+
+<div class="span12">
+	<%= will_paginate @roles, :renderer => BootstrapPagination::Rails %>
 </div>

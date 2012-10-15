@@ -6,7 +6,9 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  priority        :integer
-#  description     :string(255)
+#  title           :string(255)
+#  status          :text
+#  objective       :string(255)
 #  risk            :text
 #  mitigate_risks  :text
 #  backup          :text

@@ -21,7 +21,10 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
 
-  #Getter
+  def current_user=(user)
+    @current_user = user
+  end
+
   def current_user?(user)
     user == current_user
   end
@@ -34,9 +37,7 @@ module SessionsHelper
   end
   
   #Setter
-  def current_user=(user)
-    @current_user = user
-  end
+
 
   def redirect_back_or(default)
     #redirect_to root_path

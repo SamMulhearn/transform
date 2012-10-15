@@ -23,8 +23,11 @@ ActiveRecord::Schema.define(:version => 20121005135906) do
   create_table "rfcs", :force => true do |t|
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "user_id"
     t.integer  "priority"
-    t.string   "description"
+    t.string   "title"
+    t.text     "status"
+    t.text     "objective"
     t.text     "risk"
     t.text     "mitigate_risks"
     t.text     "backup"
@@ -33,10 +36,9 @@ ActiveRecord::Schema.define(:version => 20121005135906) do
     t.text     "pre_task"
     t.text     "post_task"
     t.text     "backout_plan"
-    t.datetime "start"
-    t.datetime "finish"
-    t.datetime "downtime_start"
-    t.datetime "downtime_finish"
+    t.date     "imp_date"
+    t.time     "downtime_start"
+    t.time     "downtime_finish"
   end
 
   create_table "roles", :force => true do |t|

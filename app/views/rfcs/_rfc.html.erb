@@ -1,0 +1,25 @@
+<div class="span12">
+<table class="table table-bordered userindex">
+	<tr>
+		<td class="hideoverflow">
+			<strong><%= link_to rfc.title %></strong>
+		</td>
+	</tr>
+	<tr>
+		<td class="hideoverflow">
+			<%=  rfc.imp_date %>
+		</td>
+	</tr>
+	<tr>
+		<td class="hideoverflow">
+			stuff!
+		</td>
+	</tr>
+	</table>
+
+	<li>
+	  <%=link_to rfc.id, edit_rfc_path(rfc)%>
+	  <%= rfc.title %>
+	  <%= rfc.imp_date %>
+	</li>
+</div>

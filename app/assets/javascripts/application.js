@@ -12,4 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery-ui
+//= require_tree
+//= require i18n/jquery.ui.datepicker-en-GB.js
+//= require bootstrap-wysihtml5
+
+
+$(document).ready(function(){
+  $('input.ui-date-picker').datepicker($.datepicker.regional['en-GB']);
+});
+

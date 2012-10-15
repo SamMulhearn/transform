@@ -11,9 +11,11 @@
 #
 
 class Role < ActiveRecord::Base
-  attr_accessible :name, :approvalgroup, :mandatory_appr
+  attr_accessible :name, :approvalgroup, :mandatory_appr, :user_attributes, :user_ids
   has_many :assignments
   has_many :users, :through => :assignments, :uniq => true
+  accepts_nested_attributes_for :assignments 
+  accepts_nested_attributes_for :users
 
   def mandatory?
  	self.mandatory_appr? ? "Yes" : "No"

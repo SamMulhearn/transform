@@ -31,15 +31,20 @@
 
           </ul>
           <ul class="nav pull-right">
+            <li>
+              <form class="navbar-search pull-left">
+                <input type="text" class="search-query" placeholder="Search">
+              </form>
+            </li>
             <% if signed_in? %>
                         <li class="dropdown">
-                          <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock"></i> My Account<b class="caret"></b></a>
+                          <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock"></i> <%=current_user.fullname%><b class="caret"></b></a>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
                             <li><a tabindex="-1" href="http://google.com">Action</a></li>
                             <li><a tabindex="-1" href="#anotherAction">Another action</a></li>
                             <li><a tabindex="-1" href="#">Something else here</a></li>
                             <li class="divider"></li>
-                            <li><%= link_to "Sign Out", signout_path, :method => :delete, :confirm => "You sure?"%></li>
+                            <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
                           </ul>
                         </li>
             <% else %>
