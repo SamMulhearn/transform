@@ -31,7 +31,7 @@ end
 	x = Rfc.create!(title:lorem_s, imp_date:xdate, user:xuser, status:"New", imp_plan:lorem_p, pre_task:lorem_p, post_task:lorem_p, 
 	backup:lorem_p, impact:lorem_p, objective:lorem_p, risk:lorem_p, mitigate_risks:lorem_p, downtime:xdowntime, 
 	downtime_start:xstart, downtime_finish:xend)
-	(rand(0..3)to_i).times do
+	rand(3).times do
 		Comment.create!(:user => User.offset(rand(User.count)).first, :rfc => x, :comment => lorem_p)
 	end
 end
