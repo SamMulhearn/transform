@@ -8,12 +8,14 @@ module SessionsHelper
     #cookies.permanent[:remember_token] = user.remember_token #Remember User Via Cookie
     session[:remember_token] = user.remember_token #Remember user only in this session
     current_user = user
+    reset_cancan
   end
 
   def sign_out
     current_user = nil
     session[:remember_token] = nil
     cookies.delete(:remember_token)
+    reset_cancan
   end
 
   #Getter
@@ -52,6 +54,11 @@ module SessionsHelper
 
 
   private
+    
+    def reset_cancan
+      @current_ability = nil
+      @current_user = nil
+    end
     
     def clear_return_to
       session.delete(:return_to)

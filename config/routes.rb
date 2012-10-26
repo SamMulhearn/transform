@@ -1,11 +1,20 @@
 Transform::Application.routes.draw do
-  resources :rfcs
 
+  
+  resources :approvals
+  
+  resources :rfcs do
+    resources :comments
+  end
+  
   resources :users
   resources :roles
   resources :sessions, only: [:new, :create, :destroy]
+
+  
   root :to => 'staticpage#home'
 
+  match '/cs',      to: 'rfcs#cs'
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

@@ -1,48 +1,41 @@
 class Ability
   include CanCan::Ability
-    def initialize(user)
+  def initialize(user)
     # Define abilities for the passed in user here. For example:
     
     #user ||= User.new # guest user (not logged in)
+
+    alias_action :cs, :to => :read
+    #alias_action :edit, :save, :to => :update
+    #abilityalias_action :new, :to => :create
+    
+    #All users, signed in or not
     
     if user == nil #guest user (not logged in)
       can :read, Rfc
+      can :create, User
+      can :read, User
     else
-      Rails.logger.error "Some debugging info I want to see in my development log."
-
-      #everyone
-      clear_aliased_actions
-      #alias_action :index, :show, :to => :read
-      #can :read, :rfc
-      #can :index, :rfcs
-
-      # if 
-      #   can :update, :rfcs, :user_id => current_user.id
-      # else
-      #   can :create, :rfcs
-      # end
-
-      # if chgmgr
-      #   can [:update], :rfcs
-      # end
-      
-      #Everyone
-      alias_action :index, :show, :to => :read
-      alias_action :edit, :to => :update
-      alias_action :new, :save, :to => :create
-
-      can :read, Rfc
-      can :create, Rfc
-      can :update, Rfc, :user_id => user.id #Update/Edit Own RFCs
-
-      if user.roles.include?(Role.find_by_name("Change Manager"))
-        can :update, Rfc
+      #All signed in users
+      can :create,:read, Rfc
+      can :update, Rfc, :user_id => user.id #Update/Edit Own RFCs   
+      can :update, Approval, :role_id => user.role_ids
+      can :index, Approval
+      can :create, Comment
+      can :read, User
+      if user.roles.include?(Role.find_by_name("Change Management")) then
+        can :manage, [Rfc, User]
+        can :manage, Role, :approvalgroup => true
+        can :manage, User
+        can :manage, Approval
+      end 
+      if user.roles.include?(Role.find_by_name("Administrator")) then
+        can :manage, :all
       end
+    end
 
-      #Is Administrator
-      if user.roles.include?(Role.find_by_name("Administrator"))
-         can :manage, :all
-      end
+  end
+end
 
 
       
@@ -63,6 +56,3 @@ class Ability
       #   can :update, Article, :published => true
       #
       # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
-    end
-  end
-end

@@ -1,0 +1,67 @@
+<div class="span12">
+	<% @rfcs.each do | r | %>
+		<div class="span5 approval">
+			<table class ="table table-bordered"><tbody><tr><td>
+				<strong>
+					<%= link_to "RFC #{r.id}", rfc_path(r) %> 
+				</strong> <br />
+					<%= link_to r.title, rfc_path(r) %><br /><br />
+
+
+				<p class="muted">
+					<% rfc_apprs = @approvals.each.select {| a | a.rfc_id == r.id} %>
+					<%= "Review on behalf of #{pluralize(rfc_apprs.count,"group")}:" %>
+					<% rfc_apprs.each do | a | %>
+							<li class="muted"><%= a.role.name %></li>
+					<% end %>
+				</p>
+
+				<dl class="dl-horizontal muted">
+					<%= content_tag("dt","Owner") %>
+					<%= content_tag("dd",r.user.fullname) %>
+					<%= content_tag("dt","Implementation Date") %>
+					<%= content_tag("dd", r.imp_date_in_words ) %>	
+				</dl>
+
+				<%= link_to rfc_path(r), class:'btn btn-info', "data-disable-with"=> "Please Wait..." do %>
+					<i class="icon-file icon-white"></i> Review RFC
+				<% end %>
+			</td></tr></tbody></table>
+		</div>
+	<% end %>
+</div>
+
+<!-- 	<table class="table table-hover table-striped" %>
+		<thead>
+			<tr>
+				<td>RFC #</td>
+				<td>Owner</td>
+				<td>Title</td>
+				<td>Implementation Date</td>
+				<td>Approval</td>
+			</tr>
+		</thead>
+		<tbody>
+		<%# @rfcs.each do | r | %>
+		<tr>
+			<td><%#= r.id %></td>
+			<td><%#= r.user.fullname %></td>
+			<td>
+				<%#= r.title %>
+				<%#= link_to "#{r.title}", rfc_path(r), id: "new_link", remote: true %>
+			</td>
+
+			<td><%#= r.imp_date %></td>
+			<td>
+				<%# rfc_apprs = @approvals.each.select {| a | a.rfc_id == r.id} %>
+				<%# rfc_apprs.each do | a | %>
+					<%# if current_user.role_ids.include?(a.role.id) and !a.closed? %>
+
+					<%# end %>
+				<%# end %>
+				</td>
+			</tr>
+			<%# end %>
+	</tbody>
+	</table>
+</div> -->

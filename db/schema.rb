@@ -11,18 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121005135906) do
+ActiveRecord::Schema.define(:version => 20121019083022) do
+
+  create_table "approvals", :force => true do |t|
+    t.integer  "role_id",                       :null => false
+    t.integer  "rfc_id",                        :null => false
+    t.boolean  "closed",     :default => false, :null => false
+    t.boolean  "approved",   :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "assignments", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "role_id"
-    t.integer  "user_id"
+    t.integer  "role_id",    :null => false
+    t.integer  "user_id",    :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "rfc_id",     :null => false
+    t.integer  "user_id",    :null => false
+    t.text     "comment"
+    t.text     "css_class"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rfcs", :force => true do |t|
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "user_id"
     t.integer  "priority"
     t.string   "title"
@@ -37,16 +55,19 @@ ActiveRecord::Schema.define(:version => 20121005135906) do
     t.text     "post_task"
     t.text     "backout_plan"
     t.date     "imp_date"
+    t.boolean  "downtime",        :default => false
     t.time     "downtime_start"
     t.time     "downtime_finish"
   end
 
+  add_index "rfcs", ["status"], :name => "index_rfcs_on_status"
+
   create_table "roles", :force => true do |t|
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "name"
-    t.boolean  "approvalgroup"
-    t.boolean  "mandatory_appr"
+    t.boolean  "approvalgroup",  :default => true,  :null => false
+    t.boolean  "mandatory_appr", :default => false, :null => false
   end
 
   create_table "users", :force => true do |t|

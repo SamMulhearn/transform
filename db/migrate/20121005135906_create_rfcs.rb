@@ -17,8 +17,10 @@ class CreateRfcs < ActiveRecord::Migration
       t.text :post_task
       t.text :backout_plan
       t.date :imp_date
+      t.boolean :downtime, :default => false
       t.time :downtime_start
       t.time :downtime_finish
     end
+    add_index :rfcs, :status
   end
 end

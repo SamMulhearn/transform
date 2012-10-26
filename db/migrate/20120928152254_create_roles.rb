@@ -3,8 +3,8 @@ class CreateRoles < ActiveRecord::Migration
     create_table :roles do |t|
       t.timestamps
       t.string :name
-      t.boolean :approvalgroup
-      t.boolean :mandatory_appr
+      t.boolean :approvalgroup, :null => false, :default => true
+      t.boolean :mandatory_appr, :null => false, :default => false
     end
   end
 end

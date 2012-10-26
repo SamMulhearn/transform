@@ -1,0 +1,46 @@
+<br>
+<%= search_form_for @search do |f| %>
+
+  <div class="span4">
+    <div class="control-group">
+      <%= f.label :id_matches, "Change Number is: ", :class =>"control-label" %>
+      <%= f.text_field :id_matches %>
+    </div>
+    <div class="control-group">
+      <%= f.label :user_id_matches, "Owner is: ", :class =>"control-label" %>
+      <%= f.collection_select :user_id_matches, User.all,:id,:fullname, {:include_blank => ""} %>
+    </div>
+    <div class="controls">
+      <%= f.submit "Search", :class => "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="control-group">
+      <%= f.label :imp_date_lteq, "Implementation date is on or before:", :class =>"control-label" %>
+      <%= f.text_field :imp_date_lteq, :class => "reqdatespicker" %>
+     </div>
+    <div class="control-group">
+      <%= f.label :imp_date_gt, "Implementation date is after: ", :class =>"control-label" %>
+      <%= f.text_field :imp_date_gt, :class => "reqdatespicker" %>
+    </div>
+    <input type="hidden" name="direction" id="f_direction">
+    <input type="hidden" name="sort" id="f_column">
+  </div>
+  <div class="span3">
+    <div class="control-group">
+      <%= f.label :title_cont, "Title contains: ", :class =>"control-label" %>
+      <%= f.text_field :title_cont %>
+    </div>
+    <div class="control-group">
+      <%#= f.label :downtime_true, "Change has downtime? ", :class =>"control-label form-inline" %>
+      <label class="check_box"><%= f.check_box :downtime_true %> Change has downtime?</label>
+      <span class="help-block">Unchecked includes changes with and without downtime</span>
+    </div>    
+
+  </div>
+<% end %>
+<script>
+  $(function() {
+    $( ".reqdatespicker" ).datepicker();
+  });
+</script>

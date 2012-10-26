@@ -18,15 +18,14 @@
 
 class User < ActiveRecord::Base
   has_secure_password
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :role_attributes, :role_ids
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :role_ids
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX }, :uniqueness => true
   has_many :assignments, :dependent => :destroy
   has_many :roles, :through => :assignments, :uniq => true
-  accepts_nested_attributes_for :roles
-  accepts_nested_attributes_for :assignments
   before_save :create_remember_token , :downcase_email
   has_many :rfcs
+  has_many :comments
 
   	def fullname
 		"#{self.first_name} #{self.last_name}"
@@ -39,5 +38,9 @@ class User < ActiveRecord::Base
 
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
+    end
+
+    def current_approvals
+      Rfc.where(:status => "Seek Approval").approvals.where(:role => self.roles).select(:rfc_id).uniq.count
     end
 end

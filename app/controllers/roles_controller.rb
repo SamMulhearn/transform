@@ -1,4 +1,5 @@
 class RolesController < ApplicationController
+	load_and_authorize_resource 
 	def index
 		@roles = Role.where(:approvalgroup => 't').paginate(:page => params[:page], :per_page => 10,)
 	end
@@ -22,7 +23,7 @@ class RolesController < ApplicationController
   	end
 
 	def update
-    	@role = Role.find(params[:id]) #Not required because @user is defined in correct_user
+    @role = Role.find(params[:id]) #Not required because @user is defined in correct_user
     if @role.update_attributes(params[:role])
       flash[:notice] = "Approval Group Updated"
       redirect_to roles_path

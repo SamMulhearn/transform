@@ -14,35 +14,41 @@
       </ul>
         <div class="nav-collapse">
           <ul class="nav">
-
+            
+            <li>
+              <%= link_to cs_path do %>
+                <i class="icon-calendar"></i> Change Schedule
+              <% end %> 
+            </li>
 
             <li class="<%= 'active' if params[:controller] == 'rfcs' %>"> <%= link_to rfcs_path do %>
               <i class="icon-wrench"></i> RFC
             <% end %> </li>
 
-
-            <li class="<%= 'active' if params[:controller] == 'users' %>"> <%= link_to users_path do %>
-              <i class="icon-user"></i> Users
-            <% end %> </li>
+            <% if can? :index, User then %>
+              <li class="<%= 'active' if params[:controller] == 'users' %>"> <%= link_to users_path do %>
+                <i class="icon-user"></i> Users
+              <% end %> </li>
+            <% end %>
             
-            <li class="<%= 'active' if params[:controller] == 'roles' %>"> <%= link_to roles_path do %>
-              <i class="icon-check"></i> Approval Groups
-            <% end %></li>
+            <% if can? :index, Approval then %>
+              <li class="<%= 'active' if params[:controller] == 'approvals' %>"> <%= link_to approvals_path do %>
+                <i class="icon-check"></i> RFCs to Review <%= content_tag( "span", get_rfcs_to_approve_count, :class => "badge badge-info") if get_rfcs_to_approve_count > 0 %> 
+              <% end %></li>            
+            <% end %>
+            <% if can? :index, Role %>
+              <li class="<%= 'active' if params[:controller] == 'roles' %>"> <%= link_to roles_path do %>
+                <i class="icon-list-alt"></i> Approval Groups
+              <% end %></li>
+            <% end %>
 
           </ul>
           <ul class="nav pull-right">
-            <li>
-              <form class="navbar-search pull-left">
-                <input type="text" class="search-query" placeholder="Search">
-              </form>
-            </li>
             <% if signed_in? %>
                         <li class="dropdown">
                           <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock"></i> <%=current_user.fullname%><b class="caret"></b></a>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                            <li><a tabindex="-1" href="http://google.com">Action</a></li>
-                            <li><a tabindex="-1" href="#anotherAction">Another action</a></li>
-                            <li><a tabindex="-1" href="#">Something else here</a></li>
+                            <li><%=link_to "My RFC's", rfcs_path(:params => {'q' => {'user_id_matches' => current_user.id}} ) %></li>
                             <li class="divider"></li>
                             <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
                           </ul>

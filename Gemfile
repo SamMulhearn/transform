@@ -44,13 +44,15 @@ gem 'ui_datepicker-rails3'
 gem 'jquery_datepicker'
 gem 'bootstrap-wysihtml5-rails'
 gem 'log4r'
+gem 'ransack'
+
 #gem "thin"
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 # Use unicorn as the app server
 # gem 'unicorn'

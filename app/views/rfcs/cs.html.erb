@@ -1,0 +1,28 @@
+<script>
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        aspectRatio: 2.1,
+        theme: true,
+
+		events: {
+		        url: '/cs.json',
+		        type: 'GET',
+		        error: function() {
+		            alert('there was an error while fetching events!');
+		        },
+		        color: 'yellow',   // a non-ajax option
+		        textColor: 'black' // a non-ajax option
+		    },
+
+
+    })
+
+});
+</script>
+<div class="span12">
+	<div id='calendar'></div>
+</div>

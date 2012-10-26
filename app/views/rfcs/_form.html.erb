@@ -1,13 +1,8 @@
-
-
 <script type="text/javascript">
   $(document).ready(function () {
-    $("[rel=tooltip]").tooltip({ placement: 'right' });
+    $("[rel=tooltip]").tooltip({ placement: 'top' });
   });
 </script>
-
-
-
 
 <div class="span12 fixed">
 	<ul class="nav nav-tabs" id="myTab">
@@ -15,6 +10,7 @@
 	  <li><a href="#How" data-toggle="tab">How</a></li>
 	  <li><a href="#Risks" data-toggle="tab">Risks</a></li>
 	  <li><a href="#When" data-toggle="tab">When</a></li>
+	  <li><a href="#Approvals" data-toggle="tab">Approvals</a></li>
 	</ul>
 
 	<div class="row fixed">
@@ -26,14 +22,14 @@
 				<div class="tab-content span12 fixed">
 				  <div class="tab-pane active" id="What">
 				  	<%= f.association :user, as: :select, :prompt => "Select Owner", label: 'Owner', :label_method => :fullname, :input_html => { :class => 'span4' ,:rel => "tooltip", :title => "Assign this RFC, if you change the owner, you may lose your ability to edit this RFC"} %>
-				  	<%= f.input :status,:input_html => { :class => 'span4' ,:rel => "tooltip", :title => "Change the status and save to seek approval"}, :collection => ['New', 'Seek Approval','Approved', 'On Hold'], :include_blank => false  %>
+				  	<%= f.input :status,:input_html => { :class => 'span4' ,:rel => "tooltip", :title => "Change the status and save to seek approval"}, :collection => get_valid_statuses(@rfc), :include_blank => false  %>
 						<%= f.input :title, :input_html => {:rel => "tooltip", :title => "Choose a brief title"} %>
-						<%= f.input :objective, :input_html => {:rel => "tooltip", :title => "What do you expect your RFC to achieve?"} %>
+						<%= f.input :objective, :wrapper_html => {:rel => "tooltip", :title => "What do you expect your RFC to achieve?"} %>
 				  </div>
 
 				  <div class="tab-pane" id="How">
-			  		<%= f.input :backup, :input_html => {:rel => "tooltip", :title => "How will you backup existing configuration prior to starting your change?"} %>
-						<%= f.input :imp_plan, :label => "Implementation Plan" , :input_html => { :class => 'span12', :rows => 8, :rel => "tooltip", :title => "How will you implement your change?" }%>
+			  		<%= f.input :backup, :wrapper_html => {:rel => "tooltip", :title => "How will you backup existing configuration prior to starting your change?"} %>
+						<%= f.input :imp_plan, :label => "Implementation Plan" , :wrapper_html => { :rel => "tooltip", :title => "How will you implement your change?" }, :input_html => { :rows => 8 } %>
 
 
 						<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#prepostform">
@@ -42,8 +38,8 @@
  
 						<div id="prepostform" class="collapse">
 							<br>
-							<%= f.input :pre_task, :label => "Pre-Tasks", :input_html => {:rel => "tooltip", :title => "Are there any pre-requesite activies to complete prior to starting your change?"} %>
-							<%= f.input :post_task, :input_html => {:rel => "tooltip", :title => "Are there any activites to complete after your change has finished?"} %>
+							<%= f.input :pre_task, :label => "Pre-Tasks", :wrapper_html => {:rel => "tooltip", :title => "Are there any pre-requesite activies to complete prior to starting your change?"} %>
+							<%= f.input :post_task, :wrapper_html => {:rel => "tooltip", :title => "Are there any activites to complete after your change has finished?"} %>
 						</div>
 
 				  </div>
@@ -54,21 +50,37 @@
 				
 
 						<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#downtimeform">
-  						<i class="icon-time icon-white"></i> Add Downtime
+  						<i class="icon-time icon-white"></i> Downtime?
 						</button>
  
 						<div id="downtimeform" class="collapse">
 							<br>
+							<%= f.input :downtime, :input_html => {:class => "span1"} %>
 							<%= f.input :downtime_start, :as => :time, :input_html => {:class => "span1",:rel => "tooltip", :title => "Will there be any customer downtime?"} %>
 							<%= f.input :downtime_finish, :as => :time, :input_html => {:class => "span1",:rel => "tooltip", :title => "When will the customer downtime finish?"} %>
 						</div>
 				  </div>
 
 				  <div class="tab-pane" id="Risks">
-				  	<%= f.input :risk, :input_html => {:rel => "tooltip", :title => "Does your change introduce any new risks? Consider both during implementation and post implementation"} %>
-						<%= f.input :mitigate_risks, :input_html => {:rel => "tooltip", :title => "How do you intend to mitigate these risks, consider testing and whether you have the capibility to remove any components from service"} %>
-						<%= f.input :impact, :input_html => {:rel => "tooltip", :title => "What impact will your change have? Consider both during implementation and post implementation"} %>
-						<%= f.input :backout_plan, :input_html => {:rel => "tooltip", :title => "How will you reverse your change and restore service if your change has an adverse affect?"} %>
+				  	<%= f.input :risk, :wrapper_html => {:rel => "tooltip", :title => "Does your change introduce any new risks? Consider both during implementation and post implementation"} %>
+						<%= f.input :mitigate_risks, :wrapper_html => {:rel => "tooltip", :title => "How do you intend to mitigate these risks, consider testing and whether you have the capibility to remove any components from service"} %>
+						<%= f.input :impact, :wrapper_html => {:rel => "tooltip", :title => "What impact will your change have? Consider both during implementation and post implementation"} %>
+						<%= f.input :backout_plan, :wrapper_html => {:rel => "tooltip", :title => "How will you reverse your change and restore service if your change has an adverse affect?"} %>
+				  </div>
+				  <div class="tab-pane" id="Approvals">
+				  		<%  chkbox_defaults = Role.where(:approvalgroup => true, :mandatory_appr => true).collect(&:id) %>
+				  			<%= f.association :roles, as: :check_boxes,:input_html => {rows:'', class: ''}, :collection => Role.where(:approvalgroup => true, :mandatory_appr => false), :prompt => "Select Approval Groups",  label: 'Additional Approval Groups', :label_method => :name %>
+				  		<small>
+				  			<p class="muted">
+				  				Mandatory Approval Groups:
+				  				<% mandaprroles = @rfc.roles.where(:approvalgroup => true, :mandatory_appr => true) %>
+				  				<ul>
+				  				<% mandaprroles.each do |r| %>
+				  					<%=content_tag("li",r.name,:class=>"muted") %>
+				  				<% end %>
+				  			</ul>
+				  			</p>
+				  		</small>
 				  </div>
 				<div>
 			</div>
@@ -77,6 +89,7 @@
 	<div class="row">
 		<div class="form-actions row span12">
 			<%= f.button :submit, 'Save RFC',"data-disable-with"=> "Please Wait!" ,:class => 'btn-primary' %>
+			<%= link_to "View RFC", rfc_path(@rfc), :class => "btn", :confirm => "All unsaved changes will be lost, continue?" unless @rfc.new_record?%>
 		</div>
 	</div>
 	<% end %>

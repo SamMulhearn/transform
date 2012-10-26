@@ -5,10 +5,11 @@
 #  id              :integer          not null, primary key
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  user_id         :integer
 #  priority        :integer
 #  title           :string(255)
 #  status          :text
-#  objective       :string(255)
+#  objective       :text
 #  risk            :text
 #  mitigate_risks  :text
 #  backup          :text
@@ -17,10 +18,9 @@
 #  pre_task        :text
 #  post_task       :text
 #  backout_plan    :text
-#  start           :datetime
-#  finish          :datetime
-#  downtime_start  :datetime
-#  downtime_finish :datetime
+#  imp_date        :date
+#  downtime_start  :time
+#  downtime_finish :time
 #
 
 require 'spec_helper'

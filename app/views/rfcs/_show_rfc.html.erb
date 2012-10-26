@@ -1,0 +1,84 @@
+<div class="span12">
+
+	<% if signed_in? %>
+		<%= render "approvals/approvals", :collection =>  @approvals if @approvals.any? %>
+	<% end %>
+	<%= content_tag :div, :class => "alert alert-info" do -%>
+  		<i class="icon-warning-sign"></i> This change incurs service downtime.
+	<% end if @rfc.downtime? -%>
+
+	<dl class="dl-horizontal">
+
+		<%= content_tag("dt","RFC") if !@rfc.id.nil? %>
+		<%= content_tag("dd","#{@rfc.id}") if !@rfc.id.nil? %>
+
+		<%= content_tag("dt","Owner") if !@rfc.user_id.nil? %>
+		<%= content_tag("dd",@rfc.user.fullname) if !@rfc.user_id.nil? %>
+
+		<%= content_tag("dt","Status") if !@rfc.status.blank? %>
+		<%= content_tag("dd",@rfc.status) if !@rfc.status.blank? %>	
+
+		<%= content_tag("dt","Priority") if !@rfc.priority.nil? %>
+		<%= content_tag("dd",@rfc.priority) if !@rfc.priority.nil? %>	
+
+
+		<%= content_tag("dt","Title") if !@rfc.title.blank? %>
+		<%= content_tag("dd",@rfc.title) if !@rfc.title.blank? %>
+		
+		<%= content_tag("dt","Objective") if !@rfc.objective.blank? %>
+		<%= content_tag("dd",raw(@rfc.objective)) if !@rfc.objective.blank? %>	
+
+		<hr>
+
+		<%= content_tag("dt","Risks") if !@rfc.risk.blank? %>
+		<%= content_tag("dd",raw(@rfc.risk)) if !@rfc.risk.blank? %>	
+
+		<%= content_tag("dt","Mitigation of Risks") if !@rfc.mitigate_risks.blank? %>
+		<%= content_tag("dd",raw(@rfc.mitigate_risks)) if !@rfc.mitigate_risks.blank? %>	
+
+		<%= content_tag("dt","Impact") if !@rfc.impact.blank? %>
+		<%= content_tag("dd",raw(@rfc.impact)) if !@rfc.impact.blank? %>
+
+		<%= content_tag("dt","Backout Plan") if !@rfc.backout_plan.blank? %>
+		<%= content_tag("dd",raw(@rfc.backout_plan)) if !@rfc.backout_plan.blank? %>	
+		
+		<hr>
+
+		<%= content_tag("dt","Backup Method") if !@rfc.backup.blank? %>
+		<%= content_tag("dd",raw(@rfc.backup)) if !@rfc.backup.blank? %>
+
+		<%= content_tag("dt","Pre asks") if !@rfc.pre_task.blank? %>
+		<%= content_tag("dd",raw(@rfc.pre_task)) if !@rfc.pre_task.blank? %>	
+
+		<%= content_tag("dt","Implementation Plan") if !@rfc.imp_plan.blank? %>
+		<%= content_tag("dd",raw(@rfc.imp_plan)) if !@rfc.imp_plan.blank? %>	
+
+		<%= content_tag("dt","Post Tasks") if !@rfc.post_task.blank? %>
+		<%= content_tag("dd",raw(@rfc.post_task)) if !@rfc.post_task.blank? %>	
+
+		<%= content_tag("dt","Implementation Date") if !@rfc.imp_date.nil? %>
+		<%= content_tag("dd", @rfc.imp_date_in_words ) if !@rfc.imp_date.nil? %>	
+
+		<hr>
+		
+		<%= content_tag("dt","Downtime Starts") if @rfc.downtime? %>
+		<%= content_tag("dd", @rfc.downtime_start.strftime("%H:%M (%p)")) if @rfc.downtime? %>	
+
+		<%= content_tag("dt","Downtime Ends") if @rfc.downtime? %>
+		<%= content_tag("dd", @rfc.downtime_finish.strftime("%H:%M (%p)")) if @rfc.downtime? %>	
+
+	</dl>
+	<%= link_to "Edit", edit_rfc_path(@rfc), :class => "btn btn-warning pull-right" if can? :edit, @rfc %>
+	<small>
+		<p class="muted">
+			<%="RFC created #{distance_of_time_in_words_to_now(@rfc.created_at)} ago"%><br />
+			<%="RFC updated #{distance_of_time_in_words_to_now(@rfc.updated_at)} ago"%>
+		</p>
+	</small>
+
+	<% @comments = @rfc.comments %>
+	<% @comment = Comment.new(:rfc => @rfc, :user => current_user) %>
+	<h6><%= "Comments:" if @comments.any? %></h6>
+		<%= render :template => "comments/index", :collection =>  @comments if @comments.any? %>
+		<%= render :template => "comments/new", :collection =>  @comment if signed_in? %>
+</div>

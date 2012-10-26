@@ -1,0 +1,11 @@
+<%= tag("tr",{:class => comment.css_class}, true) %>
+		<td>
+		<%= comment.comment %>
+		<small>
+			<p class="text-info">
+				<%= comment.user.fullname %> 
+				<%="(#{distance_of_time_in_words_to_now(comment.created_at)} ago)"%>
+			</p>
+		</small>
+	</td>
+</tr>
