@@ -17,7 +17,7 @@ class Role < ActiveRecord::Base
   has_many :approvals, :dependent => :destroy
   has_many :rfcs, :through => :approvals, :uniq => true
   
-  before_validation :set_booleans
+#  before_validation :set_booleans
   validates :mandatory_appr, :inclusion => {:in => [true, false]}
   validates :approvalgroup, :inclusion => {:in => [true, false]}
   validates :name, :presence => true, :uniqueness => true
@@ -32,6 +32,7 @@ class Role < ActiveRecord::Base
 			self.mandatory_appr = false if self.mandatory_appr? == false #Don't allow nil
 			self.approvalgroup = false if self.approvalgroup? == false #Don't allow nil
       self.mandatory_appr = false if self.approvalgroup == false #If it's not an approval group, then it can't be mandatory approval
-		end  
+		  return true #continue
+    end
 end
 

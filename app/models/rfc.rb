@@ -42,7 +42,7 @@ class Rfc < ActiveRecord::Base
   validates_inclusion_of :priority, :in => [1, 2, 3, 4], :allow_nil => true
   validates_inclusion_of :status, :in => ['New', 'Seek Approval','Approved', 'On Hold','Closed'], :allow_nil => false
   validates_presence_of :downtime_start, :if => :downtime?
-	validates_presence_of :downtime_finish, :if => :downtime?
+  validates_presence_of :downtime_finish, :if => :downtime?
 
 	after_save :validatedowntime, :create_mandatory_approvals, :reset_approvals
 	before_save :reset_approvals
