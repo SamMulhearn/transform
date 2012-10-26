@@ -10,7 +10,6 @@ class CommentsController < ApplicationController
 	end
 	def index
 		@comments = Rfc.find(params[:rfc_id]).comments
-		logger.debug "RFC:#{Rfc.find(params[:rfc_id]).id}"
 	end
 
 	def create
