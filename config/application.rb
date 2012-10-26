@@ -2,10 +2,10 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 # add these line for log4r
-require 'log4r'
-require 'log4r/yamlconfigurator'
-require 'log4r/outputter/datefileoutputter'
-include Log4r
+#require 'log4r'
+#require 'log4r/yamlconfigurator'
+#require 'log4r/outputter/datefileoutputter'
+#include Log4r
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
