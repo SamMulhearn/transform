@@ -44,7 +44,7 @@ gem "faker"
 gem 'ui_datepicker-rails3'
 gem 'jquery_datepicker'
 gem 'bootstrap-wysihtml5-rails'
-gem 'log4r'
+#gem 'log4r'
 gem 'ransack'
 
 #gem "thin"

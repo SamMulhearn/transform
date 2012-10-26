@@ -73,7 +73,6 @@ GEM
       thor (~> 0.14)
     jquery_datepicker (0.4)
     json (1.7.5)
-    log4r (1.1.10)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -170,7 +169,6 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery_datepicker
-  log4r
   pg
   rails (= 3.2.8)
   ransack
