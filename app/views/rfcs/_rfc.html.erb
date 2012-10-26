@@ -1,6 +1,5 @@
 <tr>
 	<td>
-		<%=link_to "#{rfc.id}", rfc %>
 		<%= link_to edit_rfc_path(rfc), :class => "btn btn-warning btn-mini" do %>
 		  <i class="icon-pencil icon-white"></i>
 		<% end if can? :edit, rfc %>
@@ -8,7 +7,7 @@
 		<%= link_to rfc_path(rfc), :method => :delete, :class => 'btn btn-danger btn-mini',"data-disable-with"=> "Deleting..." ,:confirm => "Delete RFC #{rfc.id}?" do %>
 				  			<i class="icon-trash icon-white"></i>
 					<% end if can? :destroy, rfc%>
-
+		<%=link_to "RFC #{rfc.id}", rfc %>
 	</td>
     <td><%= rfc.title %></td>
     <td><%= rfc.imp_date.strftime("%b %e, %Y") if rfc.imp_date %></td>

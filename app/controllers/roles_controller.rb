@@ -15,7 +15,7 @@ class RolesController < ApplicationController
 	def destroy
 		@role = Role.find(params[:id])
 	    if @role.destroy
-	    	flash[:notice] = ("#{@role.name} Approval Group Deleted.")
+	    	flash[:notice] = ("Deleted #{@role.name} group.")
 	    	redirect_to roles_path
 	    else
 	    	render 'edit'
@@ -25,7 +25,7 @@ class RolesController < ApplicationController
 	def update
     @role = Role.find(params[:id]) #Not required because @user is defined in correct_user
     if @role.update_attributes(params[:role])
-      flash[:notice] = "Approval Group Updated"
+      flash[:notice] = "Updated #{@role.name} group."
       redirect_to roles_path
     else
       render 'edit'
@@ -37,7 +37,7 @@ class RolesController < ApplicationController
     	@role = Role.new(params[:role])
     	@role.approvalgroup = 't'
     	if @role.save
-      		redirect_to roles_path, notice: "#{@role.name}. Approval Group Created"
+      		redirect_to roles_path, notice: "Created #{@role.name}."
     	else
       		render 'new'
     	end

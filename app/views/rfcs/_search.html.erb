@@ -3,12 +3,12 @@
 
   <div class="span4">
     <div class="control-group">
-      <%= f.label :id_matches, "Change Number is: ", :class =>"control-label" %>
-      <%= f.text_field :id_matches %>
+      <%= f.label :id_eq, "Change Number is: ", :class =>"control-label" %>
+      <%= f.text_field :id_eq %>
     </div>
     <div class="control-group">
-      <%= f.label :user_id_matches, "Owner is: ", :class =>"control-label" %>
-      <%= f.collection_select :user_id_matches, User.all,:id,:fullname, {:include_blank => ""} %>
+      <%= f.label :user_id_eq, "Owner is: ", :class =>"control-label" %>
+      <%= f.collection_select :user_id_eq, User.all,:id,:fullname, {:include_blank => ""} %>
     </div>
     <div class="controls">
       <%= f.submit "Search", :class => "btn btn-primary" %>

@@ -16,22 +16,25 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-
-	def destroy
-		email = User.find(params[:id]).email
-	    User.find(params[:id]).destroy
-	    flash[:notice] = (" User deleted. (" + email + ")")
-	    redirect_to users_path
-  	end
+  
+  def destroy
+    @user = User.find(params[:id])
+    fn = @user.fullname
+    if @user.destroy
+      flash[:notice] = ("Deleted #{fn}'s user account")
+      redirect_to users_path
+    else
+      flash[:notice] = ("Failed to delete #{fn}'s user account")
+    end
+  end
 
   	def update
     @user = User.find(params[:id]) #Not required because @user is defined in correct_user
     if @user.update_attributes(params[:user])
-      flash[:notice] = "User updated"
-      #sign_in @user
+      flash[:notice] = "Updated #{@user.fullname}'s account"
       redirect_to @user
     else
-      render 'show'
+      render 'edit'
     end
   end
 

@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
 		@comment.user = current_user
 		@comment.rfc = Rfc.find(params[:rfc_id])
 		if @comment.save!
-      		redirect_to rfc_path(@comment.rfc), notice: "Your comment has been added."
+      		redirect_to rfc_path(@comment.rfc), notice: "Your comment has been saved."
     	else
       		render new
     	end

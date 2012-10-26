@@ -10,11 +10,10 @@ Transform::Application.routes.draw do
   resources :users
   resources :roles
   resources :sessions, only: [:new, :create, :destroy]
-
   
   root :to => 'staticpage#home'
 
-  match '/cs',      to: 'rfcs#cs'
+  match '/schedule', to: 'schedule#index'
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

@@ -45,24 +45,11 @@ class RfcsController < ApplicationController
  	def update
     @rfc = Rfc.find(params[:id])
     if @rfc.update_attributes(params[:rfc])
-      flash[:notice] = "RFC#{@rfc.id} updated"
+      flash[:notice] = "Updated RFC#{@rfc.id}"
       redirect_to edit_rfc_path(@rfc)
     else
       flash[:error] = "Failed to update RFC#{@rfc.id}"
       redirect_to edit_rfc_path(@rfc)
-    end
-  end
-
-  def cs
-    respond_to do |format|
-      format.html
-      format.json { 
-        if (params[:start]).present? and (params[:end]).present? then
-          @rfcs = Rfc.scheduled_between(Time.at(params['start'].to_i),Time.at(params['end'].to_i)).where("rfcs.imp_date IS NOT NULL")          
-        else
-          @rfcs = Rfc.where("rfcs.imp_date IS NOT NULL")
-        end
-      }
     end
   end
 

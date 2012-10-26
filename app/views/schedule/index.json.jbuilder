@@ -10,7 +10,8 @@ json.array!(@rfcs) do |rfc|
 	json.url rfc_path(rfc)
 
 	if rfc.downtime?
-		json.className = "cal-downtime"
+		json.className "cal-downtime"
+		json.borderColor "red"
 	end
 	case "#{rfc.status}"
 		when "New" then
