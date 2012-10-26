@@ -45,6 +45,7 @@ class Rfc < ActiveRecord::Base
 	validates_presence_of :downtime_finish, :if => :downtime?
 
 	after_save :validatedowntime, :create_mandatory_approvals, :reset_approvals
+	before_save :reset_approvals
 
 
 	def imp_date_in_words

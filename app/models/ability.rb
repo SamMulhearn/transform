@@ -17,7 +17,7 @@ class Ability
       can :read, User
     else
       #All signed in users
-      can :create,:read, Rfc
+      can [:create,:read], Rfc
       can :update, Rfc, :user_id => user.id #Update/Edit Own RFCs   
       can :update, Approval, :role_id => user.role_ids
       can :index, Approval

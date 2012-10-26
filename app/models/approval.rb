@@ -12,7 +12,7 @@ class Approval < ActiveRecord::Base
 			end
   	end
   	#On Hold RFC is an approval is rejected.
-  	if self.approved == false then
+  	if self.approved == false and self.closed == true then
   		self.rfc.update_attributes(:status => "On Hold")
   	end
   end
