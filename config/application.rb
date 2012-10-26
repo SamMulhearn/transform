@@ -19,9 +19,9 @@ module Transform
   class Application < Rails::Application
 
     #log4r
-    log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
-    YamlConfigurator.decode_yaml( log4r_config['log4r_config'] )
-    config.logger = Log4r::Logger[Rails.env]
+    #log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
+    #YamlConfigurator.decode_yaml( log4r_config['log4r_config'] )
+    #config.logger = Log4r::Logger[Rails.env]
 
 
     config.generators do |g|    
