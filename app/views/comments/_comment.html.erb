@@ -3,7 +3,7 @@
 		<%= comment.comment %>
 		<small>
 			<p class="text-info">
-				<%= comment.user.fullname %> 
+				<%= comment.user.fullname if !comment.user.nil?%> 
 				<%="(#{distance_of_time_in_words_to_now(comment.created_at)} ago)"%>
 			</p>
 		</small>

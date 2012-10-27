@@ -15,14 +15,14 @@ json.array!(@rfcs) do |rfc|
 	end
 	case "#{rfc.status}"
 		when "New" then
-			json.backgroundColor "#B3B3B3" 
+			json.backgroundColor "#81E9F7" #Light Blue
 		when "Seek Approval" then
-			json.backgroundColor "#6691ED"
-		when "Approved" then
-			json.backgroundColor "#66ED88"
+			json.backgroundColor "#FFB259" #Orange
 		when "On Hold" then
-			json.backgroundColor "#B3B3B3"
+			json.backgroundColor "#CF5555" #Light red
+		when "Approved" then
+			json.backgroundColor "#69FF7F" #Green
 		when "Closed" then
-			json.backgroundColor "#B3B3B3"
+			json.backgroundColor "#CCBFD6" #Grey
 	end
 end

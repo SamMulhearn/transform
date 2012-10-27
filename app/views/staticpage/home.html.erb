@@ -1,9 +1,11 @@
 <div class="span12">
+	
 	<div class="hero-unit center">
+<% if can? :create, User %>
 		<%= link_to signup_path, class:'btn btn-success', "data-disable-with"=> "Please Wait..." do %>
 			<i class="icon-plus-sign icon-white"></i> New User? Sign Up Now!
 			<% end %>
-
+<% end %>
 		<%= link_to schedule_path, class:'btn btn-success', "data-disable-with"=> "Please Wait..." do %>
 			<i class="icon-calendar icon-white"></i> Change Schedule
 			<% end %>

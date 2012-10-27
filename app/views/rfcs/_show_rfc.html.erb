@@ -15,6 +15,9 @@
 		<%= content_tag("dt","Owner") if !@rfc.user_id.nil? %>
 		<%= content_tag("dd",@rfc.user.fullname) if !@rfc.user_id.nil? %>
 
+		<%= content_tag("dt","Implementation Date") if !@rfc.imp_date.nil? %>
+		<%= content_tag("dd", @rfc.imp_date_in_words ) if !@rfc.imp_date.nil? %>	
+		
 		<%= content_tag("dt","Status") if !@rfc.status.blank? %>
 		<%= content_tag("dd",@rfc.status) if !@rfc.status.blank? %>	
 
@@ -56,9 +59,6 @@
 		<%= content_tag("dt","Post Tasks") if !@rfc.post_task.blank? %>
 		<%= content_tag("dd",raw(@rfc.post_task)) if !@rfc.post_task.blank? %>	
 
-		<%= content_tag("dt","Implementation Date") if !@rfc.imp_date.nil? %>
-		<%= content_tag("dd", @rfc.imp_date_in_words ) if !@rfc.imp_date.nil? %>	
-
 		<hr>
 		
 		<%= content_tag("dt","Downtime Starts") if @rfc.downtime? %>
@@ -68,7 +68,7 @@
 		<%= content_tag("dd", @rfc.downtime_finish.strftime("%H:%M (%p)")) if @rfc.downtime? %>	
 
 	</dl>
-	<%= link_to "Edit", edit_rfc_path(@rfc), :class => "btn btn-warning pull-right" if can? :edit, @rfc %>
+	<%= link_to "Edit", edit_rfc_path(@rfc), :class => "btn btn-info pull-right" if can? :edit, @rfc %>
 	<small>
 		<p class="muted">
 			<%="RFC created #{distance_of_time_in_words_to_now(@rfc.created_at)} ago"%><br />

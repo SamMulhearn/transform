@@ -1,4 +1,9 @@
 <div class="span12">
+
+	<%= content_tag :div, :class => "alert alert-info" do -%>
+  		<i class="icon-ok"></i> You don't have any RFC's to approve
+	<% end unless @rfcs.any? -%>
+
 	<% @rfcs.each do | r | %>
 		<div class="span5 approval">
 			<table class ="table table-bordered"><tbody><tr><td>

@@ -5,9 +5,10 @@ $(document).ready(function() {
 
     $('#calendar').fullCalendar({
         // put your options and callbacks here
-        aspectRatio: 2.1,
+        aspectRatio: 2.3,
         theme: true,
-
+        firstDay: 1,
+        weekMode: 'liquid',
 		events: {
 		        url: '/schedule.json',
 		        type: 'GET',
@@ -15,7 +16,8 @@ $(document).ready(function() {
 		            alert('there was an error while fetching events!');
 		        },
 		        color: 'yellow',   // a non-ajax option
-		        textColor: 'black' // a non-ajax option
+		        textColor: 'black', // a non-ajax option
+		        borderColor: 'grey'
 		    },
 
 
@@ -25,4 +27,12 @@ $(document).ready(function() {
 </script>
 <div class="span12">
 	<div id='calendar'></div>
+</div>
+<div class="span12">
+	<div class="demo-new">New</div>
+	<div class="demo-seekapr">Seek Approval</div>
+	<div class="demo-onhold">On Hold</div>
+	<div class="demo-approved">Approved</div>
+	<div class="demo-closed">Closed</div>
+	<div class="demo-downtime">Downtime</div>
 </div>

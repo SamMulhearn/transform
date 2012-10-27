@@ -9,10 +9,6 @@ class ApprovalsController < ApplicationController
 		#@rfcs = Rfc.where(:status => "Seek Approval").select {| r | (r.role_ids & current_user.role_ids).any? }
 		@approvals = Approval.where(:closed => 'false', :role_id => current_user.role_ids).select {| a | a.rfc.status == "Seek Approval"}
 		@rfcs =Rfc.find( (@approvals.collect(&:rfc_id).uniq),	:order => "imp_date DESC")
-		if @rfcs.count == 0
-			flash[:notice] = "You don't have any RFC's to review"
-			redirect_to root_path
-		end
 	end
 	def update
 		@approval = Approval.find(params[:id]) #Not required because @user is defined in correct_user

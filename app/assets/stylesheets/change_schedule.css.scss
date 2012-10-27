@@ -1,3 +1,55 @@
 // Place all the styles related to the change_schedule controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.demo-new {
+	background-color: #81E9F7;
+	width: 100px;
+	float:left;
+	margin: 5px;
+	text-align: center;
+	margin-top:10px;
+}
+.demo-seekapr {
+	background-color: #FFB259;
+	width: 100px;
+	float:left;
+	margin: 5px;
+	text-align: center;
+	margin-top:10px;
+}
+.demo-onhold {
+	background-color: #CF5555;
+	width: 100px;
+	float:left;
+	margin: 5px;
+	text-align: center;
+	margin-top:10px;
+}
+.demo-approved {
+	background-color: #69FF7F;
+	width: 100px;
+	float:left;
+	margin: 5px;
+	text-align: center;
+	margin-top:10px;
+}
+.demo-closed {
+	background-color: #CCBFD6;
+	width: 100px;
+	float:left;
+	margin: 5px;
+	text-align: center;
+	margin-top:10px;
+}
+.demo-downtime {
+	width: 100px;
+	float:left;
+	margin: 5px;
+	text-align: center;
+	font-weight: bold;
+	border-color:red;
+	border-style:solid;
+	border-width:1px;
+	margin-top:10px;
+}

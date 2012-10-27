@@ -2,7 +2,7 @@ module RfcsHelper
 	def get_valid_statuses(rfc)
 		if signed_in?
 			if can? :destroy, rfc
-				["New","Seek Approval","Approved","On Hold"]
+				["New","Seek Approval","Approved","On Hold","Closed"]
 			else
 				["New","Seek Approval","On Hold","Closed"]
 			end
