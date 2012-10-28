@@ -20,7 +20,11 @@ Transform::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  #Turn off for Heroku demo
   config.action_mailer.default_url_options = {host: "transform.dev"}
+  config.action_mailer.perform_deliveries = false
+  config.action_mailer.raise_delivery_errors = false
+
 
 
   # Defaults to nil and saved in location specified by config.assets.prefix
