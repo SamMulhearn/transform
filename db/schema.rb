@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(:version => 20121019083022) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.integer  "user_id"
-    t.integer  "priority"
+    t.string   "closure_code"
     t.string   "title"
-    t.text     "status"
+    t.string   "status"
     t.text     "objective"
     t.text     "risk"
     t.text     "mitigate_risks"

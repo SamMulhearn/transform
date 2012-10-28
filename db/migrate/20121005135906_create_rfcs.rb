@@ -4,9 +4,9 @@ class CreateRfcs < ActiveRecord::Migration
 
       t.timestamps
       t.integer :user_id
-      t.integer :priority
+      t.string :closure_code
       t.string :title
-      t.text :status
+      t.string :status
       t.text :objective
       t.text :risk
       t.text :mitigate_risks #take_out_of_service #testing completed

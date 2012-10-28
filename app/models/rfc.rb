@@ -24,7 +24,7 @@
 
 
 class Rfc < ActiveRecord::Base
-  attr_accessible :priority, :title, :status, :objective, :risk, :mitigate_risks, :backup, :impact, :imp_plan, :pre_task, 
+  attr_accessible :closure_code, :title, :status, :objective, :risk, :mitigate_risks, :backup, :impact, :imp_plan, :pre_task, 
   	:post_task, :backout_plan, :imp_date, :downtime_start, :downtime_finish, :user_id, :user, :downtime, :role_ids
 
 	belongs_to :user
@@ -39,7 +39,6 @@ class Rfc < ActiveRecord::Base
 
   #1 = Emergency, 2=Standard, 3=Low, 4=Retrospective
   
-  validates_inclusion_of :priority, :in => [1, 2, 3, 4], :allow_nil => true
   validates_inclusion_of :status, :in => ['New', 'Seek Approval','Approved', 'On Hold','Closed'], :allow_nil => false
   validates_presence_of :downtime_start, :if => :downtime?
   validates_presence_of :downtime_finish, :if => :downtime?

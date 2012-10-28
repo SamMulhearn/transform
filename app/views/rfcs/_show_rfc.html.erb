@@ -21,10 +21,6 @@
 		<%= content_tag("dt","Status") if !@rfc.status.blank? %>
 		<%= content_tag("dd",@rfc.status) if !@rfc.status.blank? %>	
 
-		<%= content_tag("dt","Priority") if !@rfc.priority.nil? %>
-		<%= content_tag("dd",@rfc.priority) if !@rfc.priority.nil? %>	
-
-
 		<%= content_tag("dt","Title") if !@rfc.title.blank? %>
 		<%= content_tag("dd",@rfc.title) if !@rfc.title.blank? %>
 		
@@ -50,7 +46,7 @@
 		<%= content_tag("dt","Backup Method") if !@rfc.backup.blank? %>
 		<%= content_tag("dd",raw(@rfc.backup)) if !@rfc.backup.blank? %>
 
-		<%= content_tag("dt","Pre asks") if !@rfc.pre_task.blank? %>
+		<%= content_tag("dt","Pre Tasks") if !@rfc.pre_task.blank? %>
 		<%= content_tag("dd",raw(@rfc.pre_task)) if !@rfc.pre_task.blank? %>	
 
 		<%= content_tag("dt","Implementation Plan") if !@rfc.imp_plan.blank? %>

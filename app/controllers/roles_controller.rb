@@ -14,13 +14,25 @@ class RolesController < ApplicationController
 
 	def destroy
 		@role = Role.find(params[:id])
-	    if @role.destroy
-	    	flash[:notice] = ("Deleted #{@role.name} group.")
-	    	redirect_to roles_path
-	    else
-	    	render 'edit'
-	    end
-  	end
+		rfc_ids = @role.rfc_ids
+		if @role.destroy
+	  	Rfc.find(rfc_ids).each do | r |
+    		if r.status == "Seek Approval"
+    			if r.approvals.count > 0
+    				r.approvals.each do | a |
+    					a.update_rfc # Check existing approvals, if all are approved then approved RFC
+    				end
+    			else
+    				r.update_attributes(:status => "Approved") #The role deleted was the only approval, approved RFC
+    			end
+    		end
+    	end
+    	flash[:notice] = ("Deleted #{@role.name} group.")
+    	redirect_to roles_path
+    else
+    	render 'edit'
+    end
+  end
 
 	def update
     @role = Role.find(params[:id]) #Not required because @user is defined in correct_user

@@ -27,7 +27,7 @@
 
 						<% end %>
 					<td>
-						<%= link_to role_path(r), :method => :delete, :class => 'btn btn-danger',"data-disable-with"=> "Deleting..." ,:confirm => "Delete approval group #{r.name}?" do %>
+						<%= link_to role_path(r), :method => :delete, :class => 'btn btn-danger',"data-disable-with"=> "Deleting..." ,:confirm => "Delete approval group #{r.name}? Any RFC's seeking approval where this group is the only approval group will be approved. Any RFCs seeking where all other approvals are already approved will also be approved." do %>
 			  			<i class="icon-trash icon-white icon-white"></i> Delete
 			  		</td>
 				<% end %>
