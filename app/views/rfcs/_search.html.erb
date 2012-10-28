@@ -7,11 +7,14 @@
       <%= f.text_field :id_eq %>
     </div>
     <div class="control-group">
-      <%= f.label :user_id_eq, "Owner is: ", :class =>"control-label" %>
-      <%= f.collection_select :user_id_eq, User.all,:id,:fullname, {:include_blank => ""} %>
+      <%= f.label :status_eq, "Status is: ", :class =>"control-label" %>
+      <%= f.select :status_eq, options_for_select([[''],['New'], ['Seek Approval'], ['Approved'], ['On Hold'], ['Closed']], :selected => @search.status_eq ) %>
+  
+
     </div>
-    <div class="controls">
-      <%= f.submit "Search", :class => "btn btn-primary" %>
+    <div class="control-group">
+      <%= f.label :user_id_eq, "Owner is: ", :class =>"control-label" %>
+      <%= f.collection_select :user_id_eq, User.all,:id,:fullname, {:include_blank => true} %>
     </div>
   </div>
   <div class="span4">
@@ -36,8 +39,14 @@
       <label class="check_box"><%= f.check_box :downtime_true %> Change has downtime?</label>
       <span class="help-block">Unchecked includes changes with and without downtime</span>
     </div>    
-
   </div>
+  <div class="row">
+    <div class="span3">
+      <div class="controls">
+        <%= f.submit "Search", :class => "btn btn-primary" %>
+      </div>
+    </div>
+  <div>
 <% end %>
 <script>
   $(function() {

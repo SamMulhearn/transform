@@ -11,11 +11,10 @@ class ApprovalsController < ApplicationController
 		@rfcs =Rfc.find( (@approvals.collect(&:rfc_id).uniq),	:order => "imp_date DESC")
 	end
 	def update
-		@approval = Approval.find(params[:id]) #Not required because @user is defined in correct_user
+		@approval = Approval.find(params[:id]) 
     if @approval.update_attributes(params[:approval])
       #flash[:notice] = "Approval #{@approval.approved ? "approved" : "rejected"} on behalf of #{@approval.role.name} for #{link_to "RFC  @approval.rfc_id", @approval.rfc}"
       flash[:notice] = %Q[RFC #{@approval.rfc.id} #{@approval.approved ? "approved" : "rejected"} on behalf of #{@approval.role.name}]
-
       @approval.rfc.comments.create(comment: "RFC #{@approval.approved ? "approved" : "rejected"} on behalf of #{@approval.role.name}", :user => current_user, css_class: "#{@approval.approved ? 'success' : 'error'}")
 	  	if @approval.rfc.approvals.where(:closed => 'false', :role_id => current_user.role_ids).select {| a | a.rfc.status == "Seek Approval"}.count > 0
 	  		redirect_to rfc_path(@approval.rfc)

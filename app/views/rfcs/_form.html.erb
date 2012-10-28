@@ -3,7 +3,7 @@
     $("[rel=tooltip]").tooltip({ placement: 'top' });
   });
 </script>
-<% if @rfc.status == "Seek Approval" or @rfc.status == "Approved" then
+<% if @rfc.status == ["Seek Approval","Approved"].any?{|s| @rfc.status.include? s} then
  			var_disabled  = true
  	 else var_disabled = false 
  	 end %>

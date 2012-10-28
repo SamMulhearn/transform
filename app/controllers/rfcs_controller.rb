@@ -47,6 +47,9 @@ class RfcsController < ApplicationController
     if @rfc.update_attributes(params[:rfc])
       flash[:notice] = "Updated RFC #{@rfc.id}"
       redirect_to edit_rfc_path(@rfc)
+      if Rfc.find(@rfc.id).status == "Seek Approval"
+        ApprovalsMailer.new_approval(@rfc).deliver
+      end
     else
       flash[:error] = "Failed to update RFC#{@rfc.id}"
       redirect_to edit_rfc_path(@rfc)

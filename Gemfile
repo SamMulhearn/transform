@@ -11,6 +11,7 @@ gem 'pg'
 group :development do
 	gem 'annotate'
 	gem 'debugger'
+	gem "letter_opener"
 end
 
 group :development, :test do

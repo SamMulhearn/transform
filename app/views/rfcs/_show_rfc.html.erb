@@ -63,6 +63,16 @@
 		<%= content_tag("dt","Downtime Ends") if @rfc.downtime? %>
 		<%= content_tag("dd", @rfc.downtime_finish.strftime("%H:%M (%p)")) if @rfc.downtime? %>	
 
+		<hr>
+
+		<% if ["Approved","Seek Approval","On Hold"].any?{|s| @rfc.status.include? s} %>
+			<%= content_tag("dt","Approvals") %>
+			<% @rfc.approvals.each do | a | %>
+				<%= content_tag("dd", "#{a.approved ? 'Approved' : 'Rejected'} by #{a.role.name}" ) if a.closed %>
+				<%= content_tag("dd", "Pending review by #{a.role.name}" ) if !a.closed %>				
+			<% end %>	
+		<% end %>
+
 	</dl>
 	<%= link_to "Edit", edit_rfc_path(@rfc), :class => "btn btn-info pull-right" if can? :edit, @rfc %>
 	<small>

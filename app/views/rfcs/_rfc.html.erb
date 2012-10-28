@@ -11,6 +11,7 @@
 	</td>
     <td><%= rfc.title %></td>
     <td><%= rfc.imp_date.strftime("%b %e, %Y") if rfc.imp_date %></td>
+    <td><%= rfc.status %></td>
     <td><%= rfc.user.fullname if rfc.user %></td>
     <td><%= rfc.downtime? ? 'Yes' : 'No'%></td>
  </tr>
