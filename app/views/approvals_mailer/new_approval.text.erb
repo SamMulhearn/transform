@@ -1,2 +1,6 @@
-<%= @greeting %>, find me in app/views/app/views/approvals_mailer/new_approval.text.erb
+<%= @greeting %>, 
+
+<%= @rfc.user.fullname %> has submitted an RFC for approval.
+
+<%= @rfc.title %>
 <%= rfc_url(@rfc) %>

@@ -5,11 +5,15 @@ class ApprovalsMailer < ActionMailer::Base
   # with the following lookup:
   #
   #   en.approvals_mailer.new_approval.subject
-  #
+  # 
   def new_approval(rfc)
     @greeting = "Hi"
     @rfc = rfc
-
-    mail to: "sam.mulhearn@gmail.com", subject: "You have new RFC's to approve."
+    #user_ids = Role.joins(:users).where(:id => @rfc.role_ids).pluck(:user_id)
+    emails = User.joins(:roles => {:rfcs => :roles}).where('rfcs.id' => @rfc.id).pluck(:email).uniq
+    # @rfcs.roles.each do |r|
+    #   emailstosendto.push(r.users.select(&:email)
+    #   sample.push(3, 4, 5)
+    mail to: emails, subject: "You have new RFC's to approve."
   end
 end

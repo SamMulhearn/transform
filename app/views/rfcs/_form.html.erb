@@ -3,7 +3,7 @@
     $("[rel=tooltip]").tooltip({ placement: 'top' });
   });
 </script>
-<% if @rfc.status == ["Seek Approval","Approved"].any?{|s| @rfc.status.include? s} then
+<% if ["Seek Approval","Approved"].any?{|s| @rfc.status.include? s} then
  			var_disabled  = true
  	 else var_disabled = false 
  	 end %>
@@ -25,8 +25,6 @@
 			<div class="row">
 				<div class="tab-content span12 fixed">
 				  <div class="tab-pane active" id="What">
-				  <%= f.input :status,:input_html => { :class => 'span4' ,:rel => "tooltip", :title => "Change the status and save to seek approval"}, :collection => get_valid_statuses(@rfc), :include_blank => false, :disabled => false  %>
-
 				  	<%= f.association :user, as: :select, :prompt => "Select Owner", label: 'Owner', :label_method => :fullname, :input_html => { :class => 'span4' ,:rel => "tooltip", :title => "Assign this RFC, if you change the owner, you may lose your ability to edit this RFC"}%>
 						<%= f.input :title, :input_html => {:rel => "tooltip", :title => "Choose a brief title"} %>
 						<%= f.input :objective, :wrapper_html => {:rel => "tooltip", :title => "What do you expect your RFC to achieve?"} %>
@@ -73,6 +71,7 @@
 						<%= f.input :backout_plan, :wrapper_html => {:rel => "tooltip", :title => "How will you reverse your change and restore service if your change has an adverse affect?"} %>
 				  </div>
 				  <div class="tab-pane" id="Approvals">
+				  		<%= f.input :status,:input_html => { :class => 'span4' ,:rel => "tooltip", :title => "Change the status and save to seek approval"}, :collection => get_valid_statuses(@rfc), :include_blank => false, :disabled => false  %>
 				  		<%  chkbox_defaults = Role.where(:approvalgroup => true, :mandatory_appr => true).collect(&:id) %>
 				  			<%= f.association :roles, as: :check_boxes,:input_html => {rows:'', class: ''}, :collection => Role.where(:approvalgroup => true, :mandatory_appr => false), :prompt => "Select Approval Groups",  label: 'Additional Approval Groups', :label_method => :name %>
 				  		<small>

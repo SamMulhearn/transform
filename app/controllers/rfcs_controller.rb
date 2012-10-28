@@ -6,7 +6,7 @@ class RfcsController < ApplicationController
 
 	def new
     if signed_in?
-      @rfc = current_user.rfcs.build
+      @rfc = current_user.rfcs.build(:status => "New")
     else
       redirect_to root_path, notice: "Sorry, you need to be logged in to create an RFC"
     end
@@ -44,15 +44,21 @@ class RfcsController < ApplicationController
 
  	def update
     @rfc = Rfc.find(params[:id])
-    if @rfc.update_attributes(params[:rfc])
-      flash[:notice] = "Updated RFC #{@rfc.id}"
+    if @rfc.status == "Seek Approval" and params[:rfc][:status] == "Seek Approval"
+      #No Change, don't save, else approvals might get lost
+      flash[:error] = "To update RFC #{@rfc.id}, change the status first."
       redirect_to edit_rfc_path(@rfc)
-      if Rfc.find(@rfc.id).status == "Seek Approval"
-        ApprovalsMailer.new_approval(@rfc).deliver
-      end
     else
-      flash[:error] = "Failed to update RFC#{@rfc.id}"
-      redirect_to edit_rfc_path(@rfc)
+      if @rfc.update_attributes(params[:rfc])
+        flash[:notice] = "Updated RFC #{@rfc.id}"
+        redirect_to edit_rfc_path(@rfc)
+        if Rfc.find(@rfc.id).status == "Seek Approval"
+          ApprovalsMailer.new_approval(@rfc).deliver
+        end
+      else
+        flash[:error] = "Failed to update RFC#{@rfc.id}"
+        redirect_to edit_rfc_path(@rfc)
+      end
     end
   end
 

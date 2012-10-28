@@ -63,7 +63,7 @@ class Rfc < ActiveRecord::Base
 			mand_roles = Role.where(:approvalgroup => true, :mandatory_appr => true)
 			mand_roles.each do |r|
 				if !self.roles.include?(r)
-					self.roles << r
+					self.roles.push r
 				end
 			end
 		end

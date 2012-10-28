@@ -20,11 +20,20 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     fn = @user.fullname
-    if @user.destroy
-      flash[:notice] = ("Deleted #{fn}'s user account")
+    if (params[:user][:assignto]).nil?
+      flash[:error] = "You must specify a user to re-assign existing RFC's tp before deleting #{fn}'s account"
+      logger.debug params
       redirect_to users_path
     else
-      flash[:notice] = ("Failed to delete #{fn}'s user account")
+      @user.rfcs.each do |r|
+        r.update_attributes(:user => User.find(params[:user][:assignto]))
+      end
+      if @user.destroy
+        flash[:notice] = ("Deleted #{fn}'s user account")
+        redirect_to users_path
+      else
+        flash[:notice] = ("Failed to delete #{fn}'s user account")
+      end
     end
   end
 

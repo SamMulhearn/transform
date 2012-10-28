@@ -16,12 +16,18 @@
 				<td class="hideoverflow">
 					<%= link_to edit_user_path(user), :class => 'btn btn-primary',"data-disable-with"=> "Please Wait..." do %>
 				  			<i class="icon-pencil icon-white"></i> Edit
-					<% end %>
-					<%= link_to user_path(user), :method => :delete, :class => 'btn btn-danger',"data-disable-with"=> "Deleting..." ,:confirm => "Delete user account for #{user.fullname}?" do %>
-				  			<i class="icon-trash icon-white"></i> Delete
+					<% end if can? :edit, user%>
+			</tr>
+			<% if can? :delete, user %>
+			 <tr>
+			 	<td>
+					<%= simple_form_for user, :method => "delete" do  |f| %>
+					<%= f.input :assignto, collection: User.all , :as => :select, label_method: :fullname, :include_blank => false, :label => "Assign existing RFC's to" %>
+					<%= f.submit "Delete User", :class => "btn btn-danger", :confirm => "Are you sure? All existing RFC's will be re-assigned" %>
 					<% end %>
 				</td>
 			</tr>
+		<% end %>
 		</table>
 	</div>
 <% end %>
